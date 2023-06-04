@@ -4,7 +4,7 @@ process FILTER_SITES{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/vcf_filtering/", mode:"copy")
+    publishDir("${params.outDir}/vcf_filtering/sites_filtering/", mode:"copy")
 
     input:
         tuple val(chrom), file(vcf)
@@ -15,7 +15,7 @@ process FILTER_SITES{
     
     script:
         def opt_arg = ""
-        prefix = vcf.basename
+        prefix = vcf.baseName
         if(params.maf > 0){
             opt_arg = opt_arg + " --maf "+params.maf
         }
